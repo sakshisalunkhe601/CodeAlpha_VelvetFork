@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Velvet Fork | Modern Bistro</title>
+    <style>
+        :root {
+            --charcoal: #2d2d2d;
+            --gold: #d4af37;
+            --cream: #fffdd0;
+            --white: #ffffff;
+            --light-grey: #f4f4f4;
+        }
+/* FEEDBACK STYLES */
+.feedback-container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border: 1px solid #eee;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.rating-box {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    font-size: 2rem;
+    gap: 10px;
+}
+
+.stars input { display: none; }
+
+.stars label {
+    color: #ddd;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.stars input:checked ~ label,
+.stars label:hover,
+.stars label:hover ~ label {
+    color: var(--gold);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.feedback-form input, 
+.feedback-form select, 
+.feedback-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 0; /* Keeps the sharp luxury look */
+    background: #fafafa;
+    font-family: inherit;
+}
+
+.feedback-btn {
+    background: var(--gold);
+    color: var(--charcoal);
+    border: none;
+    padding: 15px 30px;
+    width: 100%;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.feedback-btn:hover {
+    background: var(--charcoal);
+    color: var(--gold);
+}
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Playfair Display', serif, 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: var(--white);
+            color: var(--charcoal);
+            scroll-behavior: smooth;
+        }
+
+        /* HEADER */
+        header {
+            background-color: var(--charcoal);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .logo {
+            color: var(--gold);
+            font-size: 1.6rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        nav ul li { margin-left: 25px; }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover { color: var(--gold); }
+
+        .btn-order {
+            background-color: var(--gold);
+            color: var(--charcoal) !important;
+            padding: 10px 22px;
+            border-radius: 2px;
+            font-weight: bold;
+        }
+/* MENU TABLE */
+        .menu-category { margin-top: 40px; font-style: italic; color: var(--gold); border-bottom: 1px solid #eee; }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        td { padding: 15px 0; border-bottom: 1px solid #eee; }
+        .dish-name { font-weight: bold; font-size: 1.2rem; }
+        .dish-desc { font-size: 0.9rem; color: #777; }
+        .dish-price { text-align: right; font-weight: bold; color: var(--gold); }
+        /* CAROUSEL */
+        .slider-container {
+            position: relative;
+            height: 650px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active { opacity: 1; }
+
+        .slide-content {
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 50px;
+            text-align: center;
+            border: 2px solid var(--gold);
+            backdrop-filter: blur(5px);
+            max-width: 600px;
+        }
+
+        .slide-content h1 { font-size: 3rem; margin: 0; letter-spacing: 4px; }
+
+        /* SECTIONS */
+        .section { padding: 80px 10%; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.8rem; margin-bottom: 10px; }
+        .gold-line { width: 80px; height: 3px; background: var(--gold); margin: auto; }
+
+        /* ABOUT SECTION */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h2 { font-size: 2.2rem; color: var(--gold); }
+        .about-text p { font-size: 1.1rem; line-height: 1.8; color: #555; }
+
+        /* ORDER FORM WITH ADDRESS */
+        .form-container {
+            background: var(--light-grey);
+            padding: 50px;
+            border-radius: 4px;
+            max-width: 900px;
+            margin: auto;
+            border-left: 5px solid var(--gold);
+        }
+
+        .grid-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full-width { grid-column: span 2; }
+
+        label { font-weight: bold; font-size: 0.9rem; text-transform: uppercase; color: #444; }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccc;
+            background: white;
+            margin-top: 5px;
+            font-family: inherit;
+        }
+
+        button.submit-btn {
+            background: var(--charcoal);
+            color: var(--gold);
+            padding: 18px;
+            border: none;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.4s;
+            margin-top: 10px;
+        }
+
+        button.submit-btn:hover { background: #000; letter-spacing: 4px; }
+
+        footer { background: var(--charcoal); color: #999; text-align: center; padding: 60px 10%; }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .about-grid, .grid-form { grid-template-columns: 1fr; }
+            .full-width { grid-column: auto; }
+            header { flex-direction: column; }
+            nav ul { margin-top: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">The Velvet Fork</a>
+        <nav>
+            <ul>
+                
+                <li><a href="#about">Our Story</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#order" class="btn-order">Order Now</a></li>
+                <li><a href="#feedback" class="btn-order">Feedback</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="slider-container">
+        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1500&q=80')">
+            <div class="slide-content">
+                <h1>Culinary Artistry</h1>
+                <p>Masterfully plated dishes that redefine modern bistro dining.</p>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1500&q=80')">
+            <div class="slide-content">
+                <h1>Signature Flavors</h1>
+                <p>From our farm-to-table kitchen directly to your soul.</p>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1500&q=80')">
+            <div class="slide-content">
+                <h1>The Lounge</h1>
+                <p>Experience the finest selection of vintage wines and spirits.</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="section" id="about">
+        <div class="about-grid">
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80" style="width:100%; box-shadow: 20px 20px 0 var(--gold);" alt="Interior">
+            </div>
+            <div class="about-text">
+                <h2>Our Story</h2>
+                <p>Located in the heart of the city, The Velvet Fork is a sanctuary for food lovers. We pride ourselves on using 100% organic ingredients, sourced from local sustainable farms.</p>
+                <p>Our philosophy is simple: celebrate the ingredient. Every dish is a balance of classic technique and modern innovation.</p>
+            </div>
+        </div>
+    </section>
+<section class="section" id="menu" style="background-color: var(--light-grey);">
+        <div class="section-title">
+            <h2>The Menu</h2>
+            <div></div>
+        </div>
+
+        <h3 class="menu-category">Appetizers</h3>
+        <table>
+            <tr>
+                <td class="dish-name">Burrata & Heirloom Tomato<br><span class="dish-desc">Balsamic glaze, fresh basil, sourdough crisp.</span></td>
+                <td class="dish-price">$18</td>
+            </tr>
+            <tr>
+                <td class="dish-name">Tuna Tartare<br><span class="dish-desc">Avocado mousse, soy-ginger dressing, sesame.</span></td>
+                <td class="dish-price">$22</td>
+            </tr>
+        </table>
+
+        <h3 class="menu-category">Main Courses</h3>
+        <table>
+            <tr>
+                <td class="dish-name">Truffle Tagliatelle<br><span class="dish-desc">Wild mushrooms, 24-month parmesan, truffle oil.</span></td>
+                <td class="dish-price">$28</td>
+            </tr>
+            <tr>
+                <td class="dish-name">Wagyu Ribeye<br><span class="dish-desc">10oz A5 Wagyu, garlic mash, red wine reduction.</span></td>
+                <td class="dish-price">$85</td>
+            </tr>
+            <tr>
+                <td class="dish-name">Roasted Sea Bass<br><span class="dish-desc">Asparagus, lemon butter sauce, capers.</span></td>
+                <td class="dish-price">$42</td>
+            </tr>
+        </table>
+
+        <h3 class="menu-category">Desserts</h3>
+        <table>
+            <tr>
+                <td class="dish-name">Dark Chocolate Fondant<br><span class="dish-desc">Molten center, Madagascar vanilla bean ice cream.</span></td>
+                <td class="dish-price">$14</td>
+            </tr>
+        </table>
+    </section>
+    <section class="section" id="order">
+        <div class="section-title">
+            <h2>Place Your Order</h2>
+            <div class="gold-line"></div>
+            <p style="margin-top: 15px;">Fast, secure, and gourmet delivery to your doorstep.</p>
+        </div>
+        
+        <div class="form-container">
+            <form class="grid-form">
+                <div class="full-width"><label>Personal Details</label></div>
+                <input type="text" placeholder="Full Name" required>
+                <input type="tel" placeholder="Mobile Number" required>
+
+                <div class="full-width"><label>Selection</label></div>
+                <select class="full-width">
+                    <option disabled selected>Select Your Signature Dish</option>
+                    <option>Wagyu Ribeye Steak - $85</option>
+                    <option>Truffle Tagliatelle - $28</option>
+                    <option>Roasted Sea Bass - $42</option>
+                    <option>Dark Chocolate Fondant - $14</option>
+                </select>
+
+                <div class="full-width"><label>Delivery Address</label></div>
+                <input type="text" class="full-width" placeholder="Street Address / Apartment No." required>
+                <input type="text" placeholder="City" required>
+                <input type="text" placeholder="Zip Code" required>
+
+                <div class="full-width"><label>Additional Info</label></div>
+                <textarea class="full-width" rows="3" placeholder="Notes for the chef or delivery driver..."></textarea>
+                
+                <button type="submit" class="submit-btn full-width">Confirm & Pay</button>
+            </form>
+        </div>
+    </section>
+    <div class="feedback-container">
+        <form class="feedback-form">
+            <section class="section" id="feedback">
+    <div class="section-title">
+        <h2>Guest Feedback</h2>
+        <div class="gold-line"></div>
+        <p style="margin-top: 15px;">Your experience is our recipe for improvement.</p>
+    </div>
+
+    
+</section>
+            <div class="rating-box">
+                <label>Overall Experience</label>
+                <div class="stars">
+                    <input type="radio" name="star" id="star5"><label for="star5">★</label>
+                    <input type="radio" name="star" id="star4"><label for="star4">★</label>
+                    <input type="radio" name="star" id="star3"><label for="star3">★</label>
+                    <input type="radio" name="star" id="star2"><label for="star2">★</label>
+                    <input type="radio" name="star" id="star1"><label for="star1">★</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="text" placeholder="Your Name" required>
+            </div>
+
+            <div class="form-group">
+                <input type="email" placeholder="Email Address" required>
+            </div>
+
+            <div class="form-group">
+                <select>
+                    <option disabled selected>What did you love most?</option>
+                    <option>The Atmosphere</option>
+                    <option>The Service</option>
+                    <option>The Food Quality</option>
+                    <option>The Wine List</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <textarea rows="5" placeholder="Do you have any suggestions for us?" required></textarea>
+            </div>
+
+            <button type="submit" class="feedback-btn">Share My Thoughts</button>
+        </form>
+    </div>
+
+    <footer>
+        <h2 style="color: var(--gold);">The Velvet Fork</h2>
+        <p>123 Luxury Lane, Manhattan, NY 10001</p>
+        <p>Reservations: (555) 123-4567 | info@velvetfork.com</p>
+        <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">
+            &copy; 2026 The Velvet Fork. Designed for Excellence.
+        </div>
+        
+    </footer>
+
+    <script>
+        // CAROUSEL LOGIC
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        setInterval(nextSlide, 4500); // Transitions every 4.5 seconds
+    </script>
+
+</body>
+</html>
