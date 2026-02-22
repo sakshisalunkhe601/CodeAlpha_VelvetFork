@@ -1,8 +1,11 @@
 # 🐳 Web Server Containerization with Docker
----
-### CodeAlpha DevOps Internship - Task 2
 
----
+
+## Project Name: The Velvet Fork Restaurant Website
+
+#### CodeAlpha DevOps Internship - Task 2
+
+
 
 ## 📝 Project Overview
 
@@ -10,13 +13,13 @@ This project focuses on the core DevOps practice of containerization. I have suc
 
 ### What this project contains:
 
-**Dockerfile:** The blueprint for building our custom web server image.
+- **Dockerfile:** The blueprint for building our custom web server image.
 
-**Web Content:** A custom-coded HTML/CSS Restaurant landing page.
+- **Web Content:** A custom-coded HTML/CSS Restaurant landing page.
 
-**Container Logic:** Port mapping (8080:80) to bridge the host machine and the container.
+- **Container Logic:** Port mapping (8080:80) to bridge the host machine and the container.
 
-**Global Tunnel:** Integration with Ngrok for cross-device access (Mobile/Tablet).
+- **Global Tunnel:** Integration with Ngrok for cross-device access (Mobile/Tablet).
 
 ---
 
@@ -35,7 +38,6 @@ The workflow follows a standard DevOps "Build-Ship-Run" pipeline:
 * **Tunnel:** Ngrok generates a public URL to allow external traffic to reach the local container.
 
 ---
-
 ## 🛠️ Tech Stack
 
 |Category | Technology|
@@ -43,63 +45,93 @@ The workflow follows a standard DevOps "Build-Ship-Run" pipeline:
 |Containerization | Docker Desktop|
 |Web Server | Nginx (Alpine Linux based)|
 |Environment | WSL 2 (Windows Subsystem for Linux)|
-|Exposure| Ngrok (Secure Tunneling)
+|Exposure | Ngrok (Secure Tunneling)|
 |Frontend | HTML5, CSS3|
+---
 
-🚀 Local Deployment (In Short)
+## 🚀 Local Deployment 
+
 To get this project running on your machine:
 
-Clone the Repo:
-
+- **Clone the Repo:**
 Bash
-git clone https://github.com/YOUR_USERNAME/CodeAlpha_Web_Server_using_Docker.git
-cd CodeAlpha_Web_Server_using_Docker
-Build the Image:
+git clone https://github.com/sakshisalunkhe601/CodeAlpha_VelvetFork
 
+cd CodeAlpha_VelvetFork
+
+- **Build the Image:**
 Bash
+
 docker build -t restaurant-server .
-Run the Container:
 
+- **Run the Container:**
 Bash
+
 docker run -d -p 8080:80 --name codealpha-task4 restaurant-server
+
 Access: Visit http://localhost:8080
 
-📁 Repository Structure
+- **Global Access (Ngrok):**
+Bash
+
+ngrok http 8080
+
+---
+
+## 📁 Repository Structure
+
 Plaintext
-📂 CodeAlpha_Web_Server_using_Docker
+📂 CodeAlpha_VelvetFork
+|
 ├── 📄 Dockerfile         # Docker instructions
+|
 ├── 📄 index.html         # Restaurant website code
+|
 ├── 📄 README.md          # Project documentation
+|
 └── 📂 images             # Screenshots for documentation
-🎓 What I Learned from CodeAlpha
+
+---
+
+## 🎓 What I Learned from CodeAlpha
+
 Through this task at CodeAlpha, I gained hands-on experience in:
 
-Dockerization: How to convert static code into a portable, scalable image.
+* **Dockerization:** How to convert static code into a portable, scalable image.
 
-Image Optimization: Using nginx:alpine to keep the deployment size small and secure.
+* **Image Optimization:** Using nginx:alpine to keep the deployment size small and secure.
 
-Networking: Understanding port forwarding and managing traffic between the host and the container.
+* **Networking:** Understanding port forwarding and managing traffic between the host and the container.
 
-Troubleshooting: Managing WSL 2 and Docker Engine synchronization.
+* **Troubleshooting:** Managing WSL 2 and Docker Engine synchronization.
 
-🚩 Internship Milestones
-✅ Repository Naming: CodeAlpha_Web_Server_using_Docker
+---
 
-✅ Containerization: Custom Nginx-Alpine image built and optimized for production.
+## 🚩 Internship Milestones
 
-✅ Global Access: Integrated Ngrok tunnel to bypass NAT and expose local containers to the internet.
+**✅Repository Naming:** CodeAlpha_Web_Server_using_Docker
 
-✅ DevOps Workflow: Fully implemented the Build → Ship → Run lifecycle.
+**✅Containerization:** Custom Nginx-Alpine image built and optimized for production.
 
-📸 Project Screenshots 
+**✅Global Access:** Integrated Ngrok tunnel to bypass NAT and expose local containers to the internet.
+
+**✅DevOps Workflow:** Fully implemented the Build → Ship → Run lifecycle.
+
+---
+
+## 📸 Project Screenshots 
+**1) Local Site: A screenshot of browser at localhost:8080.**
+![**Local Site: A screenshot of browser at localhost:8080.**](images/web.png)
 
 
-Local Site: A screenshot of your browser at localhost:8080.
+**2) Docker Desktop: A screenshot showing the "Green Whale" and your running container.**
+![**Docker Desktop: A screenshot showing the "Green Whale" and your running container.**](images/dockerimg.png)
 
-Docker Desktop: A screenshot showing the "Green Whale" and your running container.
 
-Mobile View: A photo or screenshot of your phone opening the Ngrok link.
+**3) Mobile View: A photo or screenshot of phone opening the Ngrok link.**
+![**Mobile View: A photo or screenshot of phone opening the Ngrok link.**]()
 
-Intern: Sakshi Salunkhe
-Organization: CodeAlpha
-Domain: DevOps
+---
+
+### **🤝 Connect with Me on LinkedIn**
+[Sakshi Salunkhe DevOps Intern @ CodeAlpha](www.linkedin.com/in/sakshi-salunkhe-758005319)
