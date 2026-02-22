@@ -127,9 +127,17 @@ Through this task at CodeAlpha, I gained hands-on experience in:
 **2) Docker Desktop: A screenshot showing the "Green Whale" and your running container.**
 ![**Docker Desktop: A screenshot showing the "Green Whale" and your running container.**](images/dockerimg.png)
 
+---
 
 **3) Mobile View: A photo or screenshot of phone opening the Ngrok link.**
-![**Mobile View: A photo or screenshot of phone opening the Ngrok link.**]()
+    * **CLICK VISIT SITE**
+![**Mobile View: A photo or screenshot of phone opening the Ngrok link.**](images/Tab1.jpeg)
+
+---
+
+**4) Ngrok Tunnel: A screenshot of the Ngrok dashboard showing the active tunnel.**
+![**Ngrok Tunnel: A screenshot of the Ngrok dashboard showing the active tunnel.**](images/Tab.jpeg)
+
 
 ---
 
